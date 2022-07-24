@@ -1,0 +1,30 @@
+@page "/event1"
+
+<label>Dados de eventos : Pressione a Tecla A para mudar a cor</label>>
+
+<div style="background-color:@cor;padding:50px;"></div>
+<input type="text" @onkeypress="@(e => TeclaPressionada(e))" />
+
+@code
+{
+    public string cor= "red";
+
+    void TeclaPressionada(KeyboardEventArgs args)
+    {
+        @switch (args.Key.ToUpper())
+        {
+            case "A":
+                cor = "blue";
+                break;
+            case "R":
+                cor = "red";
+                break; 
+            default:
+                cor = "white";
+                break;      
+        }
+        
+        Console.WriteLine($"A Tecla {args.Key.ToString()} foi Pressionada");
+        
+    }
+}
