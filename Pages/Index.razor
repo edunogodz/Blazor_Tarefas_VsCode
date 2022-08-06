@@ -1,20 +1,73 @@
 ﻿@page "/"
-@inject HttpClient http
+@* @layout MeuLayout *@
 
-<Tarefas 
-    tarefas="GetTarefas()"
-    Titulo="Lista de Tarefas"
->
+@* @inject HttpClient http *@
+@* @implements IDisposable *@
+
+@* @inject ServicoSingleton singleton
+    @inject ServicoScoped scoped
+    @inject ServicoTransient transient *@
+
+@inject IRepositorio repositorio
+
+<Tarefas tarefas="GetTarefas()" Titulo="Lista de Tarefas">
 </Tarefas>
 
+@* <h1>@Titulo</h1>
+    <h2>Fui renderizado as @HoraRenderização</h2>
+
+    <p>Singleton count: @singleton.Valor</p>
+    <p>Scoped count: @scoped.Valor</p>
+    <p>Transient count: @transient.Valor</p> *@
+
 @code {
+    @* private string Titulo { get; set; }
+        private string HoraRenderização { get; set; } *@
     List<Tarefa> tarefas = new List<Tarefa>();
-    protected override async Task OnInitializedAsync()
+
+    protected override void OnInitialized()
     {
-        tarefas = await http.GetFromJsonAsync<List<Tarefa>>("dados/tarefas.json");
+        tarefas = repositorio.ObterTarefas();
     }
+
+
+    @* protected override async Task OnInitializedAsync()
+        {
+        tarefas = await http.GetFromJsonAsync<List<Tarefa>>("dados/tarefas.json");
+        } *@
+
     private List<Tarefa> GetTarefas()
-    {            
+    {
         return tarefas;
     }
+
+
+    @* protected override void OnInitialized()
+        {
+        HoraRenderização = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"Iniciação do Componente: as {HoraRenderização}");
+        Titulo = "Ola Blazor";
+        }
+
+        protected override void OnParametersSet()
+        {
+        HoraRenderização = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"Executei o OnParametersSet: as {HoraRenderização}");
+        Console.WriteLine($"--> Recebimento dos parametros do componente");
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+        HoraRenderização = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($"Executei o OnAfterRender: Primeira vez {firstRender}");
+        Console.WriteLine($"--> Termino da renderização do componente : as {HoraRenderização}");
+        }
+
+        public void Dispose()
+        {
+        HoraRenderização = DateTime.Now.ToLongTimeString();
+        Console.WriteLine($" --> Liberação do componente as {HoraRenderização}");
+        } *@
+
+
 }

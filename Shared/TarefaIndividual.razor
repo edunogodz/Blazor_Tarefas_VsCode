@@ -1,7 +1,8 @@
-<td><button @onclick="@(() => RemoverTarefa.InvokeAsync(item))"><i class="oi oi-trash"> </i></button></td>
-<td>@item.DataCriacao</td>
-<td>@item.Descricao</td>
-<td><input type="checkbox" @bind="item.Concluida" />@item.Concluida</td>
+
+    <td><button @onclick="@(() => RemoverTarefa.InvokeAsync(item))"><i class="oi oi-trash"> </i></button></td>
+    <td>@item.DataCriacao</td>
+    <td>@item.Descricao</td>
+    <td><input type="checkbox" @bind="item.Concluida" />@item.Concluida</td>
 
 @code{
     [Parameter]

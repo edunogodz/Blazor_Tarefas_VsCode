@@ -2,7 +2,7 @@
 
 @if (ListaItem == null)
 {      
-    @if (Carregando == null)
+    @if(Carregando == null)
     {
         <img src="https://c.tenor.com/XasjKGMk_wAAAAAC/load-loading.gif" />
         <text> Carregando </text>   
@@ -12,7 +12,7 @@
         @Carregando
     }
 }
-else if (!ListaItem.Any())
+else if(!ListaItem.Any())
 {   
     @if (SemRegistro == null)
     {
@@ -34,8 +34,8 @@ else
 
 @code 
 {
-    [Parameter]public RenderFragment Carregando { get; set; }
-    [Parameter]public RenderFragment SemRegistro { get; set; }
+    [Parameter] public RenderFragment Carregando { get; set; }
+    [Parameter] public RenderFragment SemRegistro { get; set; }
     [Parameter] public List<Titem> ListaItem { get; set; }
-    [Parameter]public RenderFragment<Titem> Lista { get; set; }
+    [Parameter] public RenderFragment<Titem> Lista { get; set; }
 }
